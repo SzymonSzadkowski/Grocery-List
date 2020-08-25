@@ -1,0 +1,151 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+body{
+    display: grid;
+    place-items: center;
+    height: 90vh;
+    background-color: darkgray;
+}
+
+.main-container{
+    margin-top: 30px;
+    width: 330px;
+    background-color: whitesmoke;
+    display: grid;
+    box-shadow: 0 0 10px lightgrey;
+}
+
+.main-form{
+    margin: 10px auto 0;
+    width: 90%;
+}
+
+.alert-message{
+    margin: 1rem 0;
+    height: 1.4rem;
+    padding: 2px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    border-radius: 0.5rem;
+    transition: all 0.3s linear;
+}
+
+.alert-delete{
+    background-color: rgba(250, 0, 0, 0.3);
+}
+
+.alert-edit{
+    background-color: rgba(0, 0, 250, 0.3);
+}
+
+.alert-success{
+    background-color: rgba(0, 250, 0, 0.3);
+}
+
+.form-title{
+    font-size: 2em;
+    text-align: center;
+}
+
+.form-details{
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    margin: 15px 0 20px;
+    width: 100%;
+}
+
+.form-input{
+    border: none;
+    font-size: 1.2em;
+    width: 100%;
+    background-color: rgba(135, 206, 250, 0.5);
+    padding: 5px;
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.form-submit{
+    border: 1px solid rgba(0, 255, 64, 0.1);
+    font-size: 1.2em;
+    padding: 5px;
+    letter-spacing: 1px;
+    background-color: rgba(135, 235, 168, 0.5);
+    border-radius: 0 0.5rem 0.5rem 0;
+    cursor: pointer;
+    text-transform: capitalize;
+    transition: all 0.3s ease;
+}
+
+.form-submit:hover{
+    background-color: rgba(0, 255, 64, 0.1);
+}
+
+.grocery-list-container{
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.grocery-list-container-show{
+    visibility: visible;
+    opacity: 1;
+}
+
+.item{
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    margin: 2px auto;
+    border: 1px solid rgba(0, 0, 255, 0.1);
+    border-radius: 0.5rem;
+    background-color: aliceblue;
+    font-size: 1.2em;
+    text-transform: capitalize;
+
+}
+
+.item-name{
+    background-color: transparent;
+    width: 100%;
+    padding: 5px;
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.edit-item, .delete-item{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+/* .edit-item:hover, .delete-item:hover{
+    transform: scale(1.5);
+} */
+
+.edit-item{
+    color: rgba(0, 0, 255, 0.5);
+}
+
+.delete-item{
+    color: rgba(255, 0, 0, 0.5);
+}
+
+.clear-items{
+    text-transform: capitalize;
+    background-color: transparent;
+    border: none;
+    margin: 20px auto;
+    display: flex;
+    color: red;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
