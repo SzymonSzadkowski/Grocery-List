@@ -2,7 +2,7 @@
 
 const alertMessage = document.querySelector('.alert-message');
 const form = document.querySelector('.main-form');
-const grocery = document.getElementById("form-input");
+const formInput = document.getElementById("form-input");
 const formSubmit = document.querySelector('.form-submit');
 const groceryListContainer = document.querySelector('.grocery-list-container');
 const groceryList = document.querySelector('.grocery-list');
@@ -12,7 +12,6 @@ let itemId = 100;
 
 // edit item option
 
-let editElement;
 let editFlag = false;
 let editId = "";
 
@@ -21,13 +20,21 @@ let editId = "";
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     // stop when input is empty
-    if (grocery.value) {
+    if (formInput.value && editFlag === false) {
         showListContainer();
-        addItemToList(grocery);
-        addToLocalStorage(itemId, grocery.value);
+        addItemToList(formInput);
+        addToLocalStorage(itemId, formInput.value);
         displayTemporaryAlert("item added to the list", "success");
         backToDefaultValue();
-    } else {
+    } else if (formInput.value && editFlag === true) {
+        console.log(editId);
+        let itemTarget = document.getElementById(editId);
+        console.log(itemTarget);
+        editNameOfItem(itemTarget, formInput.value);
+        backToDefaultValue();
+        displayTemporaryAlert("the item has been edited", "edit")
+    }
+    else{
         alert("Please insert an item")
     }
 });
@@ -37,24 +44,31 @@ clearItems.addEventListener("click", () => {
     hideListContainer();
     displayTemporaryAlert("your list has been cleared", "delete");
     backToDefaultValue()
-})
+});
 
 groceryList.addEventListener('click', (event) => {
-    let eventClassList = event.target.classList;
+    let eventTarget = event.target;
+    let articleOfTarget = eventTarget.parentElement.parentElement;
+    let idOfArticleOfTarget = articleOfTarget.id;
+    console.log(idOfArticleOfTarget);
+    let eventClassList = eventTarget.classList;
     // edit button
     if (eventClassList.contains("fa-edit")) {
-        console.log("edit!!");
+        changeSubmitBtnText("edit");
+        editId = idOfArticleOfTarget;
+        console.log(editId);
+        changeStateOfEditFlag();
     }
     // delete button
     else if (eventClassList.contains("fa-trash-alt")) {
-        deleteItem(event.target);
+        deleteItem(eventTarget);
         displayTemporaryAlert("item has been deleted", "delete")
         backToDefaultValue();
-        if(groceryList.childElementCount <= 0){
+        if (groceryList.childElementCount <= 0){
             hideListContainer();
         }
     }
-})
+});
 
 
 // Functions
@@ -62,7 +76,7 @@ groceryList.addEventListener('click', (event) => {
 function addItemToList(item) {
     const itemStructure = document.createElement("article");
     itemStructure.classList.add("item");
-    const itemDataIdAttribute = document.createAttribute("data-id");
+    const itemDataIdAttribute = document.createAttribute("id");
     itemDataIdAttribute.value = itemId;
 
     itemStructure.setAttributeNode(itemDataIdAttribute);
@@ -80,10 +94,10 @@ function addItemToList(item) {
 };
 
 function backToDefaultValue() {
-    grocery.value = "";
+    formInput.value = "";
     editFlag = false;
     editId = "";
-    formSubmit.textContent = "add";;
+    formSubmit.textContent = "add";
 }
 
 function displayTemporaryAlert(text, action) {
@@ -121,8 +135,28 @@ function deleteItem(item) {;
     groceryList.removeChild(displayOfItem);
 }
 
-function addToLocalStorage(id, value) {}
+function editNameOfItem(item, name){
+    // select a paragraph which is the first child of article
+    let itemNameToEdit = item.firstChild;
+    itemNameToEdit.textContent = name;
+}
 
+function changeSubmitBtnText(text) {
+    formSubmit.textContent = text;
+}
+
+function changeStateOfEditFlag() {
+    if (editFlag === false) {
+        editFlag = true;        
+    }
+    else{
+        editFlag = false;
+    }
+}
+
+function addToLocalStorage(id, value) {
+
+}
 
 
 // function addItemToList(item) {
